@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resource('category', \App\Http\Controllers\CategoryController::class);
+Route::resource('product', \App\Http\Controllers\ProductController::class);
+
+Route::get('/categories', [\App\Http\Controllers\CategoryController::class,'getCategoriesWithProducts']);
+Route::get('/categories/{id}', [\App\Http\Controllers\CategoryController::class,'getCategoriesWithProductsById']);
+Route::get('/categories/{id}/products', [\App\Http\Controllers\ProductController::class,'getProductsByCategoryId']);
+Route::get('/categories/{id}/allProducts', [\App\Http\Controllers\ProductController::class,'getAllProductsByCategoryId']);
+
+Route::post('/generate/pin', [\App\Http\Controllers\Controller::class,'generatePin']);
+Route::post('/generate/pass', [\App\Http\Controllers\Controller::class,'generatePass']);
